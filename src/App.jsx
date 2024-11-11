@@ -1,6 +1,6 @@
 /*
 https://fullstackopen.com/osa1/monimutkaisempi_tila_reactin_debuggaus#tehtavat-1-6-1-14
-tehtävät 1.12
+tehtävät 1.13
 */
 import { useState } from "react";
 
@@ -18,13 +18,27 @@ const App = () => {
 
   const [selected, setSelected] = useState(0);
 
-  const nextAnecdote = () => {
+  //this function selects a new random anecdote
+  function nextAnecdote() {
     setSelected(Math.floor(Math.random() * anecdotes.length));
+  }
+
+  //I create a new array (new Array) with the length of the array "anecdotes"
+  //.fill(0) fills the new Array with the value 0: so the array looks like an array with 0 in all positions
+  const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
+
+  //votes is the array that contains the number of votes for each anecdote
+  const voting = () => {
+    const vote = [...votes];
+    vote[selected] += 1;
+    setVotes(vote);
   };
 
   return (
     <div>
       <p>{anecdotes[selected]}</p>
+      <p>has {votes[selected]} votes</p>
+      <button onClick={voting}>vote</button>
       <button onClick={nextAnecdote}>next anecdote</button>
     </div>
   );
