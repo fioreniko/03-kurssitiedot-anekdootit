@@ -1,6 +1,6 @@
 /*
 https://fullstackopen.com/osa1/monimutkaisempi_tila_reactin_debuggaus#tehtavat-1-6-1-14
-tehtävät 1.13
+tehtävät 1.14
 */
 import { useState } from "react";
 
@@ -34,12 +34,28 @@ const App = () => {
     setVotes(vote);
   };
 
+  //returns the largest value contained in the "votes" array
+  const maxVotes = Math.max(...votes);
+
+  //find the index of the most voted anecdote
+  const mostVotesIndex = votes.indexOf(maxVotes);
+
+  //retrieve the most voted anecdote
+  const mostVoteAnecdote = anecdotes[mostVotesIndex];
+
+  //retrieve the number of votes for that anecdote
+  const mostVotes = votes[mostVotesIndex];
+
   return (
     <div>
+      <h2>Anecdote of the day</h2>
       <p>{anecdotes[selected]}</p>
       <p>has {votes[selected]} votes</p>
       <button onClick={voting}>vote</button>
       <button onClick={nextAnecdote}>next anecdote</button>
+      <h2>Anecdote with most votes</h2>
+      <p>{mostVoteAnecdote}</p>
+      <p>has {mostVotes}votes</p>
     </div>
   );
 };
